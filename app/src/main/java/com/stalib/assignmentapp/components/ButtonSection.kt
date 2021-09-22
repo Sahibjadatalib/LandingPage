@@ -12,19 +12,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.stalib.assignmentapp.R
 import com.stalib.assignmentapp.ui.theme.BlueGrey900
+import com.stalib.assignmentapp.utils.*
 
 @Composable
 fun ButtonSection(
     modifier: Modifier = Modifier,
     showSnackBar: (String, String)->Unit
 ) {
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -36,7 +42,7 @@ fun ButtonSection(
         ButtonSectionComp(
             id = R.drawable.recipe1,
             text = "View today's recipe",
-            showSnackBar = showSnackBar
+            onClick = { startActivity(context, newRecipeIntent, null) }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -44,7 +50,7 @@ fun ButtonSection(
         ButtonSectionComp(
             id = R.drawable.recipe2,
             text = "View all my recipes",
-            showSnackBar = showSnackBar
+            onClick = { startActivity(context, allRecipeIntent, null) }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -52,7 +58,7 @@ fun ButtonSection(
         ButtonSectionComp(
             id = R.drawable.gmail,
             text = "Email me",
-            showSnackBar = showSnackBar
+            onClick = { startActivity(context, emailIntent, null) }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -60,7 +66,7 @@ fun ButtonSection(
         ButtonSectionComp(
             id = R.drawable.newsletter,
             text = "Subscribe to my tasty newsletter",
-            showSnackBar = showSnackBar
+            onClick = { startActivity(context, newsletterIntent, null) }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -74,7 +80,7 @@ fun ButtonSection(
 fun ButtonSectionComp(
     id: Int,
     text: String,
-    showSnackBar: (String, String)->Unit
+    onClick: ()->Unit
 ) {
 
     Surface(
@@ -85,7 +91,7 @@ fun ButtonSectionComp(
     ) {
 
         Row(
-            modifier = Modifier.clickable { showSnackBar("$text clicked","Dismiss") },
+            modifier = Modifier.clickable { onClick() },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ){

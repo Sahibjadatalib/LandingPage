@@ -10,12 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import com.stalib.assignmentapp.R
+import com.stalib.assignmentapp.utils.*
 
 @Composable
 fun SocialLinkSection(showSnackBar: (String, String) -> Unit) {
+
+    val context = LocalContext.current
 
     Row(
         modifier = Modifier
@@ -25,12 +30,12 @@ fun SocialLinkSection(showSnackBar: (String, String) -> Unit) {
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
 
-        SocialMediaLogo(id = R.drawable.facebook, text = "facebook",showSnackBar)
-        SocialMediaLogo(id = R.drawable.twitter, text = "twitter",showSnackBar)
-        SocialMediaLogo(id = R.drawable.linkedin, text = "linkedin",showSnackBar)
-        SocialMediaLogo(id = R.drawable.instagram, text = "instagram",showSnackBar)
-        SocialMediaLogo(id = R.drawable.youtube, text = "youtube",showSnackBar)
-        SocialMediaLogo(id = R.drawable.tiktok, text = "tiktok",showSnackBar)
+        SocialMediaLogo(id = R.drawable.facebook, { startActivity(context, facebookIntent, null) })
+        SocialMediaLogo(id = R.drawable.twitter, { startActivity(context, twitterIntent, null) })
+        SocialMediaLogo(id = R.drawable.linkedin, { startActivity(context, linkedInIntent, null) })
+        SocialMediaLogo(id = R.drawable.instagram, { startActivity(context, instagramIntent, null) })
+        SocialMediaLogo(id = R.drawable.youtube, { startActivity(context, youtubeIntent, null) })
+        SocialMediaLogo(id = R.drawable.tiktok, { startActivity(context, tiktokIntent, null) })
 
     }
 }
@@ -38,8 +43,7 @@ fun SocialLinkSection(showSnackBar: (String, String) -> Unit) {
 @Composable
 fun SocialMediaLogo(
     id: Int,
-    text: String,
-    showSnackBar: (String, String) -> Unit
+    onClick: ()->Unit
 ) {
 
     Surface(
@@ -49,7 +53,7 @@ fun SocialMediaLogo(
         shape = RoundedCornerShape(4.dp),
     ) {
 
-        IconButton(onClick = { showSnackBar("$text clicked","Dismiss") }) {
+        IconButton(onClick = { onClick() }) {
             Image(
                 modifier = Modifier.padding(4.dp),
                 painter = painterResource(id = id),
