@@ -18,7 +18,14 @@ import com.stalib.assignmentapp.components.DefaultSnackbar
 import com.stalib.assignmentapp.components.MyTopAppBar
 import com.stalib.assignmentapp.ui.theme.AssignmentAppTheme
 import com.stalib.assignmentapp.ui.theme.BlueGrey900
-
+/*
+hello
+sdd
+sd
+sd
+sd
+sd
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
